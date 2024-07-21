@@ -68,7 +68,7 @@ def save_to_google_sheets(parsed_data, key, url):
 
 def main():
     url = "https://www.franklin.com.tw/dailynews/Daily_A.html"
-    key = "kinetic-bot-429607-b2-83e041270035.json"
+    key = "C:\SunnyBank\web-scraping\kinetic-bot-429607-b2-83e041270035.json"
     spreadsheet_url = "https://docs.google.com/spreadsheets/d/1K-z5v8V_R7zhDpcEHMxUIk9P-J_hNnLT6MxTP_M4XAg/edit?gid=0#gid=0"
     
     driver = setup_driver()
