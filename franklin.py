@@ -59,17 +59,17 @@ def save_to_google_sheets(parsed_data, key, url):
     try:
         gc = pygsheets.authorize(service_file=key)
         sh = gc.open_by_url(url)
-        wks = sh.worksheet_by_title("工作表1")  # 使用工作表的名稱
+        wks = sh.worksheet_by_title("工作表1")
         df = pd.DataFrame(parsed_data, columns=['Title', 'Content'])
-        wks.clear()  # 清除工作表中的所有內容
-        wks.set_dataframe(df, (1, 1))  # 從第一行第一列開始寫入數據
+        wks.clear()
+        wks.set_dataframe(df, (1, 1))
     except Exception as e:
         print(f"Error saving to Google Sheets: {e}")
 
 def main():
     url = "https://www.franklin.com.tw/dailynews/Daily_A.html"
-    key = "kinetic-bot-429607-b2-83e041270035.json"  # 使用相對路徑
-    spreadsheet_url = "https://docs.google.com/spreadsheets/d/1q-V1YhCWHiyRsizwr_Wlw8fvWESmOsG6C5sd4Yj6jKM/edit?usp=sharing"
+    key = "kinetic-bot-429607-b2-83e041270035.json"
+    spreadsheet_url = "https://docs.google.com/spreadsheets/d/1K-z5v8V_R7zhDpcEHMxUIk9P-J_hNnLT6MxTP_M4XAg/edit?gid=0#gid=0"
     
     driver = setup_driver()
     try:
@@ -78,7 +78,7 @@ def main():
             all_texts = extract_all_text(soup)
             parsed_data = parse_text_to_title_content(all_texts)
             save_to_google_sheets(parsed_data, key, spreadsheet_url)
-            print(parsed_data)
+            #print(parsed_data)
     finally:
         driver.quit()
 
