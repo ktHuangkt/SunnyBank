@@ -1,0 +1,11 @@
+azure_endpoint = "https://neurochaintraining.openai.azure.com/"
+api_key="2f1dfab011114bbfa66576dd4ca16f7b" 
+api_version="2024-02-15-preview"
+model_name="gpt-4-0125"
+#model_name="gpt-35-turbo"
+embedding_model_name="text-embedding-3-large"
+threshold = 1
+intents_threshold = 1
+chunk_size = 500
+chunk_overlap_size = 200
+delimiters=['。', '，', ',', '、', '。']
