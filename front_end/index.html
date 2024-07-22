@@ -29,29 +29,34 @@
     <main>
         <section class="news">
             <h2>今日新聞</h2>
-            <p>新聞內容...</p>
+            <div class="news-items">
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+            </div>
         </section>
         <section class="summary">
             <h2>多方觀點摘要</h2>
-            <ul>
-                <li>觀點1</li>
-                <li>觀點2</li>
-                <li>觀點3</li>
-            </ul>
+            <div class="summary-items">
+                <div class="summary-item">宏觀經濟</div>
+                <div class="summary-item">行業</div>
+                <div class="summary-item">金融市場</div>
+                <div class="summary-item">投資策略</div>
+            </div>
         </section>
-        
+        <section class="stock-market">
+            <h2>今日股市</h2>
+        </section>
     </main>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Check if the user has visited the site before
             if (!localStorage.getItem("visited")) {
-                // Show the popup if the user has not visited before
                 document.getElementById("overlay").style.display = "flex";
-                // Set the localStorage item to indicate the user has visited
                 localStorage.setItem("visited", "true");
             } else {
-                // Hide the popup if the user has visited before
                 document.getElementById("overlay").style.display = "none";
             }
         });
