@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>首頁</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="overlay" id="overlay">
+        <div class="popup">
+            <h2>歡迎來到 Title</h2>
+            <p>請選擇您的身分：</p>
+            <div class="buttons">
+                <button onclick="closePopup()">身分1</button>
+                <button onclick="closePopup()">身分2</button>
+                <button onclick="closePopup()">身分3</button>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <h1>Title</h1>
+        <nav>
+            <a href="market.html">市場分析報告</a>
+            <a href="investment.html">投資分析報告</a>
+        </nav>
+    </header>
+    <main>
+        <section class="news">
+            <h2>今日新聞</h2>
+            <div class="news-items">
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+                <div class="news-item">新聞標題</div>
+            </div>
+        </section>
+        <section class="summary">
+            <h2>多方觀點摘要</h2>
+            <div class="summary-items">
+                <div class="summary-item">宏觀經濟</div>
+                <div class="summary-item">行業</div>
+                <div class="summary-item">金融市場</div>
+                <div class="summary-item">投資策略</div>
+            </div>
+        </section>
+        <section class="stock-market">
+            <h2>今日股市</h2>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (!localStorage.getItem("visited")) {
+                document.getElementById("overlay").style.display = "flex";
+                localStorage.setItem("visited", "true");
+            } else {
+                document.getElementById("overlay").style.display = "none";
+            }
+        });
+        function closePopup() {
+            document.getElementById("overlay").style.display = "none";
+        }
+    </script>
+</body>
+</html>
