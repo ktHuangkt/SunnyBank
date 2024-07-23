@@ -27,9 +27,42 @@ client = AzureOpenAI(
 
 # 定義 prompt
 prompt = f"""
-你是一個資深的金融業者，根據以下幾篇新聞做出完整且專業的市場分析報告:
+你是一個資深的金融業者兼理專，根據以下幾篇新聞做出完整專業且易於閱讀的一份金融市場分析報告並且市場分析報告要利於專員產生投資分析報告(旨在超越市場上的其他報告，並為投資決策提供有價值的參考):
 
 {data}
+
+根據上述新聞內容，生成一份如下格式的金融市場分析報告：
+金融市場分析報告
+摘要
+
+目錄
+  1.經濟概況
+  2.股票市場分析
+  3.債券市場分析
+  4.外匯市場分析
+  5.大宗商品市場分析
+  6.投資建議
+
+1.經濟概況
+ "內容"
+2.股票市場分析
+ "
+ 全球股票市場:...
+ 地區市場分析:...
+ "
+3.債券市場分析
+ "
+ 全球債券市場：...
+ 主要債券市場：
+ "
+4.外匯市場分析
+ "內容(ex:美元、歐元、日幣...)"
+5.大宗商品市場分析
+ "內容(ex:能源、金屬、農產品...)"
+6.投資建議
+ "內容(ex:股票、債券、外匯...)"
+
+結論
 """
 
 message_text =[
@@ -51,11 +84,14 @@ response = client.chat.completions.create(
 
 response_text = response.choices[0].message.content
 
-# 計算 tokens
-encoding = tiktoken.get_encoding("cl100k_base")
-tokens = encoding.encode(prompt)
-num_tokens = len(tokens)
+# # 計算 tokens
+# encoding = tiktoken.get_encoding("cl100k_base")
+# tokens = encoding.encode(prompt)
+# num_tokens = len(tokens)
+# print(f"Prompt tokens count: {num_tokens}")
 
-print(f"Prompt tokens count: {num_tokens}")
-# 顯示回應
-print(response_text)
+# # 顯示回應
+# print(response_text)
+
+ 
+  
