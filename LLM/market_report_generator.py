@@ -19,11 +19,6 @@ for index, row in df.iterrows():
 #print(data)
 
 
-client = AzureOpenAI(
-  azure_endpoint = azure_endpoint, 
-  api_key=api_key,  
-  api_version=api_version
-)
 
 # 定義 prompt
 prompt = f"""
@@ -45,26 +40,32 @@ prompt = f"""
 
 1.經濟概況
  "內容"
-2.股票市場分析
+2.股票市場分析(條列式)
  "
  全球股票市場:...
  地區市場分析:...
  "
-3.債券市場分析
+3.債券市場分析(條列式)
  "
  全球債券市場：...
  主要債券市場：
  "
-4.外匯市場分析
+4.外匯市場分析(條列式)
  "內容(ex:美元、歐元、日幣...)"
-5.大宗商品市場分析
+5.大宗商品市場分析(條列式)
  "內容(ex:能源、金屬、農產品...)"
-6.投資建議
+6.投資建議(條列式)
  "內容(ex:股票、債券、外匯...)"
 
 結論
 """
 
+
+client = AzureOpenAI(
+  azure_endpoint = azure_endpoint, 
+  api_key=api_key,  
+  api_version=api_version
+)
 message_text =[
         {"role": "system", "content": "你是一個資深的金融業者"},
         {"role": "user", "content": prompt}
@@ -82,7 +83,7 @@ response = client.chat.completions.create(
   stop=None
 )
 
-response_text = response.choices[0].message.content
+market_report = response.choices[0].message.content
 
 # # 計算 tokens
 # encoding = tiktoken.get_encoding("cl100k_base")
