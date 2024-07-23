@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>首頁</title>
-    <link rel="stylesheet" href="styles.css">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <div class="overlay" id="overlay">
@@ -22,8 +23,10 @@
     <header>
         <h1>Title</h1>
         <nav>
-            <a href="market.html">市場分析報告</a>
-            <a href="investment.html">投資分析報告</a>
+            <!-- <a href="market.html">市場分析報告</a> -->
+            <a href="{{ url_for('market_report') }}">市場分析報告</a>
+            <!-- <a href="investment.html">投資分析報告</a> -->
+            <a href="{{ url_for('investment') }}">投資分析報告</a>
         </nav>
     </header>
     <main>
