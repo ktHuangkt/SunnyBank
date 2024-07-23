@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>投資分析報告</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
     <header>
         <h1>投資分析報告</h1>
         <nav>
-            <a href="market.html">市場分析報告</a>
-            <a href="investment.html">投資分析報告</a>
+            <a href="{{ url_for('market_report') }}">市場分析報告</a>
+            <a href="{{ url_for('investment') }}">投資分析報告</a>
         </nav>
     </header>
     <main>
@@ -21,7 +21,7 @@
         </section>
         <section>
             <h2>產品推薦</h2>
-            <a href="product.html">產品A</a>
+            <a href="{{ url_for('product') }}">產品A</a>
         </section>
     </main>
 </body>
