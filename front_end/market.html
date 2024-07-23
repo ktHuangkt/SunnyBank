@@ -11,18 +11,18 @@
     <header>
         <h1>市場分析報告</h1>
         <nav>
-            <!-- <a href="market.html">市場分析報告</a> -->
-            <a href="{{ url_for('market_report') }}">市場分析報告</a>
+            <a href="{{ url_for('index') }}">首頁</a> 
+            <a href="{{ url_for('market') }}">市場分析報告</a>
             <a href="{{ url_for('investment') }}">投資分析報告</a>
         </nav>
     </header>
     <main>
         <section class="report-header">
-            <div class="report-date">xxxx/xx/xx</div>
+            <div class="report-date">{{ date }}</div>
             <h2>市場分析報告</h2>
         </section>
         <section class="report-content">
-            <p>{{ report | safe }}</p> <!-- 使用 Jinja2 语法插入报告内容 -->
+            <pre>{{ report | safe }}</pre> <!-- 使用 Jinja2 语法插入报告内容 -->
         </section>
     </main>
 </body>
