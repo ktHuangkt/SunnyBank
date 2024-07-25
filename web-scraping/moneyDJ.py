@@ -38,6 +38,8 @@ def fetch_content(driver, href):
     for marker in end_markers:
         content = content.split(marker)[0]
 
+    content = re.sub(r"MoneyDJ新聞.*?報導", "", content, flags=re.DOTALL).strip()
+
     return title, content, date
 
 def save_to_google_sheets(parsed_data, key, url):
@@ -45,7 +47,7 @@ def save_to_google_sheets(parsed_data, key, url):
         gc = pygsheets.authorize(service_file=key)
         sh = gc.open_by_url(url)
         wks = sh.worksheet_by_title("工作表1")
-        df = pd.DataFrame(parsed_data, columns=['標題', '內容', '日期', '連結'])
+        df = pd.DataFrame(parsed_data, columns=['Title', 'Content', 'Date', 'Link'])
         wks.clear()
         wks.set_dataframe(df, (1, 1))
     except Exception as e:
@@ -65,7 +67,7 @@ def main():
         for href in hrefs:
             print(f"Processing link: {href}")
             title, content, date = fetch_content(driver, href)
-            parsed_data.append({'標題': title, '內容': content, '日期': date, '連結': href})
+            parsed_data.append({'Title': title, 'Content': content, 'Date': date, 'Link': href})
 
     finally:
         driver.quit()

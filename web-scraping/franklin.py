@@ -35,7 +35,7 @@ def extract_all_text(soup):
     texts = soup.stripped_strings
     return list(texts)
 
-def parse_text_to_title_content(text_list, url, current_date):
+def parse_text_to_title_content(text_list, url, date):
     sections = ['美國股市', '美國債市', '歐洲', '亞洲', '中港台', '拉美', '黃金']
     parsed_data = []
     current_title = None
@@ -45,16 +45,26 @@ def parse_text_to_title_content(text_list, url, current_date):
     for text in text_list:
         if text in sections:
             if current_title and current_content:
-                parsed_data.append((current_title, ' '.join(current_content), current_date, current_link))
+                parsed_data.append((current_title, ' '.join(current_content), date, current_link))
             current_title = text
             current_content = []
         else:
             current_content.append(text)
     
     if current_title and current_content:
-        parsed_data.append((current_title, ' '.join(current_content), current_date, current_link))
+        parsed_data.append((current_title, ' '.join(current_content), date, current_link))
     
     return parsed_data
+
+def truncate_content_after_keyword(data, keyword="由富蘭克林證券投顧整理"):
+    truncated_data = []
+    for entry in data:
+        title, content, date, link = entry
+        keyword_index = content.find(keyword)
+        if keyword_index != -1:
+            content = content[:keyword_index]
+        truncated_data.append((title, content, date, link))
+    return truncated_data
 
 def save_to_google_sheets(parsed_data, key, url):
     try:
@@ -67,13 +77,12 @@ def save_to_google_sheets(parsed_data, key, url):
     except Exception as e:
         print(f"Error saving to Google Sheets: {e}")
 
-def get_today_date_from_soup(soup):
-    date_element = soup.find('date')
-    if date_element:
-        date_text = date_element.get_text(strip=True)
-        if date_text.startswith("日期："):
-            return date_text.replace("日期：", "").strip()
-    return datetime.datetime.today().strftime('%Y-%m-%d')  # 返回今天的日期
+def get_date_from_soup(soup):
+    date_tag = soup.find('date')
+    if date_tag:
+        date_text = date_tag.get_text(strip=True).replace('日期：', '').strip()
+        return date_text
+    return str(datetime.date.today())
 
 def main():
     url = "https://www.franklin.com.tw/dailynews/Daily_A.html"
@@ -84,11 +93,13 @@ def main():
     try:
         soup = fetch_page(driver, url)
         if soup:
-            current_date = get_today_date_from_soup(soup)  # 提取日期
+            date = get_date_from_soup(soup)
             all_texts = extract_all_text(soup)
-            parsed_data = parse_text_to_title_content(all_texts, url, current_date)
+            parsed_data = parse_text_to_title_content(all_texts, url, date)
+            parsed_data = truncate_content_after_keyword(parsed_data)
             save_to_google_sheets(parsed_data, key, spreadsheet_url)
             print(parsed_data)
+
     finally:
         driver.quit()
 
