@@ -8,17 +8,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import pandas as pd
 
-### key保留在local就好，不用push
 
 
-def setup_driver():
+def initialize_driver():
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--no-sandbox')
-    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    return driver
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    return webdriver.Chrome(options=options)
 
 def fetch_page(driver, url):
     driver.get(url)
@@ -32,7 +30,7 @@ def fetch_page(driver, url):
     return BeautifulSoup(driver.page_source, 'html.parser')
 
 def extract_all_text(soup):
-    texts = soup.stripped_strings  # 提取所有去除多餘空白的文本
+    texts = soup.stripped_strings
     return list(texts)
 
 def parse_text_to_title_content(text_list):
@@ -68,17 +66,17 @@ def save_to_google_sheets(parsed_data, key, url):
 
 def main():
     url = "https://www.franklin.com.tw/dailynews/Daily_A.html"
-    key = "C:\SunnyBank\web-scraping\kinetic-bot-429607-b2-83e041270035.json"
+    key = "web-scraping/kinetic-bot-429607-b2-83e041270035.json"
     spreadsheet_url = "https://docs.google.com/spreadsheets/d/1K-z5v8V_R7zhDpcEHMxUIk9P-J_hNnLT6MxTP_M4XAg/edit?gid=0#gid=0"
     
-    driver = setup_driver()
+    driver = initialize_driver()
     try:
         soup = fetch_page(driver, url)
         if soup:
             all_texts = extract_all_text(soup)
             parsed_data = parse_text_to_title_content(all_texts)
             save_to_google_sheets(parsed_data, key, spreadsheet_url)
-            #print(parsed_data)
+            print(parsed_data)
     finally:
         driver.quit()
 

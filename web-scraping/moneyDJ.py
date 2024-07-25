@@ -52,7 +52,7 @@ def save_to_google_sheets(parsed_data, key, url):
         print(f"Error saving to Google Sheets: {e}")
 
 def main():
-    key = "C:\SunnyBank\web-scraping\kinetic-bot-429607-b2-83e041270035.json"
+    key = "web-scraping/kinetic-bot-429607-b2-83e041270035.json"
     spreadsheet_url = "https://docs.google.com/spreadsheets/d/1q-V1YhCWHiyRsizwr_Wlw8fvWESmOsG6C5sd4Yj6jKM/edit?usp=sharing"
     base_url = "https://www.moneydj.com/funddj/ya/YP051000.djhtm"
 
