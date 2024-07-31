@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>投資分析報告</h1>
+        <h1>我是標題</h1>
         <nav>
             <a href="{{ url_for('index') }}">首頁</a> 
             <a href="{{ url_for('market') }}">市場分析報告</a>
@@ -17,13 +17,16 @@
     </header>
     <main>
         <section class="report-header">
-            <div class="report-date">{{ date }}</div>
             <h2>投資分析報告</h2>
+        </section>
+        <section class="date-selection">
+            <div class="report-date">{{ date }}</div>
+            <!-- <input type="date" id="report-date" name="report-date" value="{{ date }}" class="report-date"> -->
         </section>
         <section class="report-content">
             <pre>{{ report | safe }}</pre> <!-- 使用 Jinja2 语法插入报告内容 -->
         </section>
-        <section>
+        <section class="product-recommend">
             <h2>產品推薦</h2>
             <a href="{{ url_for('product') }}">產品A</a>
         </section>

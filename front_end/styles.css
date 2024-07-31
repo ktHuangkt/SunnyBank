@@ -1,9 +1,18 @@
+/* 重置瀏覽器默認樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
     --main-bg-color: #ffffff;
-    --header-bg-color: #D0EFE0;
+    --header-bg-color: #EFF5F1;
+    --footer-bg-color:#88AD9B;
     --text-color: #49745F;
     --highlight-bg-color: #EFF5F1;
-    --highlight-text-color: #fff;
+    --dark-bg-color:#6A9982;
+    --highlight-text-color: #EFF5F1;
     --button-bg-color: #81BDA0;
     --button-hover-bg-color: #6A9982;
 }
@@ -28,7 +37,7 @@ header {
 }
 
 header h1 {
-    font-size: 4vw;
+    font-size: 2.5vw;
     margin: 2.5vw 3vw;
     flex: 1;
     align-self: flex-start;
@@ -46,12 +55,25 @@ nav a {
     font-size: 1.5vw;
 }
 
-main {
+/* main {
     padding: 2vw;
     margin: 0vw 10vw; 
+} */
+
+.report-header{
+    background-color: #81BDA0;
+    margin: 0vw;
 }
 
-.report-content pre {
+.report-header h2{
+    color: var(--highlight-text-color);
+    font-size: 3vw;
+    text-align: center; /* 使標題文字置中 */
+    padding: 2vw ;
+}
+
+.report-content pre { /*報告*/
+    font-size: 1.25vw;
     white-space: pre-wrap; /* 使内容自动换行 */
     word-wrap: break-word; /* 允许长单词或URL地址换行 */
 }
@@ -60,11 +82,17 @@ section {
     margin-bottom: 2vw;
 }
 
-.news, .summary {
-    /* background-color: var(--highlight-bg-color); */
-    /* margin: 0vw 10vw; */
-    padding: 2vw ;
-    border-radius: 1vw;
+.news, .summary, .stock-market{
+    margin: 5vw 15vw 0vw 15vw; 
+    /* border-radius: 1vw; /*圓角 */
+}
+
+.stock-market{
+    margin-bottom: 10vw;
+}
+
+.date-selection, .report-content, .product-recommend{
+    margin: 2.5vw 15vw 0vw 15vw; 
 }
 
 .news h2, .summary h2, .stock-market h2 {
@@ -72,7 +100,7 @@ section {
     font-size: 1.5vw;
 }
 
-.news-items, .summary-items {
+.news-items, .summary-items, .stock-market-items {
     display: grid;
     gap: 10px;
 }
@@ -81,10 +109,18 @@ section {
     grid-template-columns: 1fr;
 }
 
-.news-item {
+.news-item-light {
     font-size: 1.2vw;
-    background-color: #EFF5F1;
+    background-color: var(--highlight-bg-color);
     color: #55826C;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.news-item-dark{
+    font-size: 1.2vw;
+    background-color: var(--dark-bg-color);
+    color: var(--highlight-text-color);
     padding: 10px;
     border-radius: 4px;
 }
@@ -96,15 +132,59 @@ section {
 
 .summary-item {
     font-size: 1.2vw;
-    background-color: #517b69;
+    background-color: var(--dark-bg-color);
     color: var(--highlight-text-color);
     padding: 20px;
     border-radius: 4px;
     text-align: center;
 }
 
-.stock-market {
-    margin-top: 20px;
+.stock-market-items{
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.stock-market-item{
+    font-size: 1.2vw;
+    background-color: var(--dark-bg-color);
+    padding: 20px;
+    border-radius: 4px;
+}
+
+footer {
+    background-color: var(--footer-bg-color);
+    padding: 5vw 10vw 5vw 10vw;
+}
+
+.footer-title {
+    font-size: 1.5em;
+}
+
+.footer-items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.footer-item {
+    padding: 10px;
+    color: var(--text-color);
+}
+
+.footer-item .main-link{
+    padding-left: 1em;
+}
+
+.footer-item ul {
+    list-style-type: none;
+    margin-top: 0.5em;
+    padding-left: 2em;
+}
+
+.footer-item a {
+    color: var(--text-color);
+    text-decoration: none;/*移除超連結的默認下劃線樣式*/
+}
+.footer-item a:hover {/*設置懸停狀態的超連結樣式*/
+    text-decoration: underline;
 }
 
 .overlay {
@@ -122,6 +202,7 @@ section {
 
 .popup {
     background-color: var(--highlight-bg-color);
+    /* margin: 10vw 15vw 10vw 15vw; */
     padding: 2vw;
     border-radius: 1vw;
     text-align: center;
@@ -133,8 +214,10 @@ section {
 }
 
 .popup p {
-    font-size: 2vw;
+    font-size: 1vw;
     color: var(--text-color);
+    padding-top: 1vw;
+    padding-bottom: 1vw;
 }
 
 .popup .buttons button {
@@ -143,7 +226,7 @@ section {
     border: none;
     padding: 1vw 2vw;
     margin: 1vw;
-    font-size: 2vw;
+    font-size: 1.5vw;
     cursor: pointer;
     border-radius: 0.5vw;
 }
