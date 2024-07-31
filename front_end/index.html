@@ -11,11 +11,11 @@
     <div class="overlay" id="overlay">
         <div class="popup">
             <h2>歡迎來到 Title</h2>
-            <p>請選擇您的身分：</p>
+            <p>請幫助我們認識你，以便提供合適的網站內容。</p>
             <div class="buttons">
-                <button onclick="closePopup()">身分1</button>
-                <button onclick="closePopup()">身分2</button>
-                <button onclick="closePopup()">身分3</button>
+                <button onclick="closePopup()">投資新手<br>(投資經驗在5年以內)</button>
+                <button onclick="closePopup()">投資老手<br>(投資經驗在5年至15年)</button>
+                <button onclick="closePopup()">投資高手<br>(投資經驗在15年以上)</button>
             </div>
         </div>
     </div>
@@ -31,11 +31,11 @@
         <section class="news">
             <h2>今日新聞</h2>
             <div class="news-items">
-                <div class="news-item">新聞標題</div>
-                <div class="news-item">新聞標題</div>
-                <div class="news-item">新聞標題</div>
-                <div class="news-item">新聞標題</div>
-                <div class="news-item">新聞標題</div>
+                <div class="news-item-light">新聞標題</div>
+                <div class="news-item-dark">新聞標題</div>
+                <div class="news-item-light">新聞標題</div>
+                <div class="news-item-dark">新聞標題</div>
+                <div class="news-item-light">新聞標題</div>
             </div>
         </section>
         <section class="summary">
@@ -49,21 +49,63 @@
         </section>
         <section class="stock-market">
             <h2>今日股市</h2>
+            <div class="stock-market-items">
+                <div class="stock-market-item"> </div>
+                <div class="stock-market-item"> </div>
+                <div class="stock-market-item"> </div>
+                <div class="stock-market-item"> </div>
+            </div>
         </section>
     </main>
+    <footer>
+        <div class="footer-title">資料來源</div>
+        <div class="footer-items">
+            <div class="footer-item">
+                <a class="main-link" href="https://www.cnyes.com/" target="_blank">鉅亨網</a>
+                <ul>
+                    <li><a href="https://www.cnyes.com/news/" target="_blank">鉅亨網新聞</a></li>
+                </ul>
+            </div>
+            <div class="footer-item">
+                <a class="main-link" href="#" target="_blank">其他資料來源</a>
+                <ul>
+                    <li><a href="#">資料連結</a></li>
+                    <li><a href="#">資料連結</a></li>
+                </ul>
+            </div>
+            <div class="footer-item">
+                <a class="main-link" href="#" target="_blank">其他資料來源</a>
+                <ul>
+                    <li><a href="#">資料連結</a></li>
+                    <li><a href="#">資料連結</a></li>
+                </ul>
+            </div>
+            <div class="footer-item">
+                <a class="main-link" href="#" target="_blank">其他資料來源</a>
+                <ul>
+                    <li><a href="#">資料連結</a></li>
+                    <li><a href="#">資料連結</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            if (!localStorage.getItem("visited")) {
+            // 如果 sessionStorage 中没有 "popupShown" 项，则显示弹出窗口
+            if (!sessionStorage.getItem("popupShown")) {
                 document.getElementById("overlay").style.display = "flex";
-                localStorage.setItem("visited", "true");
+                // 设置标记，以便在同一会话中不再显示弹出窗口
+                sessionStorage.setItem("popupShown", "true");
             } else {
                 document.getElementById("overlay").style.display = "none";
             }
         });
+    
         function closePopup() {
             document.getElementById("overlay").style.display = "none";
         }
     </script>
+    
 </body>
 </html>
