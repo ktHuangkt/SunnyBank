@@ -13,9 +13,12 @@
             <h2>歡迎來到 Title</h2>
             <p>請幫助我們認識你，以便提供合適的網站內容。</p>
             <div class="buttons">
-                <button onclick="closePopup()">投資新手<br>(投資經驗在5年以內)</button>
-                <button onclick="closePopup()">投資老手<br>(投資經驗在5年至15年)</button>
-                <button onclick="closePopup()">投資高手<br>(投資經驗在15年以上)</button>
+                <button id="beginner" onclick="sendUserRole('beginner')">
+                    投資新手<br>(投資經驗在5年以內)</button>
+                <button id="intermediate" onclick="sendUserRole('intermediate')">
+                    投資老手<br>(投資經驗在5年至15年)</button>
+                <button id="advanced" onclick="sendUserRole('advanced')">
+                    投資高手<br>(投資經驗在15年以上)</button>
             </div>
         </div>
     </div>
@@ -102,6 +105,24 @@
             }
         });
     
+        function sendUserRole(role) {
+        fetch('/set_role', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ role: role })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Response:', data);
+            // 根据返回的数据做其他操作
+            // 关闭弹出窗口
+            closePopup();
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
         function closePopup() {
             document.getElementById("overlay").style.display = "none";
         }
