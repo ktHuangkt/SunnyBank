@@ -24,7 +24,7 @@ def get_urls_from_sheet(sheet_url, service_file, column_index=2):
     gc = authorize_google_sheets(service_file)
     spreadsheet = gc.open_by_url(sheet_url)
     worksheet = spreadsheet.sheet1
-    return worksheet.get_col(column_index)[1:10]  # 只讀取前3個網址，跳過第一行標題
+    return worksheet.get_col(column_index)[1:1123]  # 只讀取前3個網址，跳過第一行標題
 
 def fetch_webpage(url):
     """
@@ -62,6 +62,8 @@ def open_pdf_and_copy_content(pdf_url):
         time.sleep(1)
         pyautogui.hotkey('ctrl', 'c')  # 複製
         time.sleep(1)
+
+        pyautogui.hotkey('alt', 'f4')  # 關掉視窗
         
         pdf_text = pyperclip.paste()  # 獲取剪貼簿內容
         return pdf_text
@@ -105,13 +107,14 @@ def main():
                     pdf_text = open_pdf_and_copy_content(simple_prospectus_link)
                     if pdf_text:
                         results.append([simple_prospectus_link, pdf_text])
+                        # 將結果保存到 Google Sheets
+                        save_to_google_sheet(results, save_sheet_url, save_service_file)
                     else:
                         logging.info(f"無法讀取PDF內容: {simple_prospectus_link}")
                 else:
                     logging.info(f"簡式公開說明書連結未找到 in {url}")
 
-    # 將結果保存到 Google Sheets
-    save_to_google_sheet(results, save_sheet_url, save_service_file)
+
 
 if __name__ == "__main__":
     main()
