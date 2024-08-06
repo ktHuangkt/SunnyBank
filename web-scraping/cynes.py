@@ -9,7 +9,7 @@ import html
 import re
 
 # Google sheets authorization
-gc = pygsheets.authorize(service_file='sunnybank-429608-f84915cdd6dc.json')
+gc = pygsheets.authorize(service_file='web-scraping/cynes-key.json')
 sheet_url = "https://docs.google.com/spreadsheets/d/1IOifGkDYhug5YskqwSoFNi70hkZnppy76uNor52-_HE/edit?gid=0#gid=0"
 sheet = gc.open_by_url(sheet_url)
 
