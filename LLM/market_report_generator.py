@@ -16,22 +16,41 @@ client = AzureOpenAI(
 # 獲取今天的日期並格式化為字符串
 today_date = datetime.now().strftime('%Y-%m-%d')
 
-sheet_id="1IOifGkDYhug5YskqwSoFNi70hkZnppy76uNor52-_HE"
 # Google Sheets的GID
 gid = "0"
-df = pd.read_csv(f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={gid}")
 
-# 筛选出当天的数据
-df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')  # 将日期列转换为字符串格式
-df_today = df[df['Date'] == today_date]
+anue_sheet_id="1IOifGkDYhug5YskqwSoFNi70hkZnppy76uNor52-_HE"
+anue_df = pd.read_csv(f"https://docs.google.com/spreadsheets/d/{anue_sheet_id}/export?format=csv&gid={gid}")
+
+MoneyDJ_sheet_id="1q-V1YhCWHiyRsizwr_Wlw8fvWESmOsG6C5sd4Yj6jKM"
+MoneyDJ_df=pd.read_csv(f"https://docs.google.com/spreadsheets/d/{MoneyDJ_sheet_id}/export?format=csv&gid={gid}")
+
+Franklin_sheet_id="1K-z5v8V_R7zhDpcEHMxUIk9P-J_hNnLT6MxTP_M4XAg"
+Franklin_df=pd.read_csv(f"https://docs.google.com/spreadsheets/d/{Franklin_sheet_id}/export?format=csv&gid={gid}")
+
 
 # 提取当天数据的 title 和 content
 data = ""
-for index, row in df_today.iterrows():
+anue_data=""
+MoneyDJ_data=""
+Franklin_data=""
+
+for index, row in anue_df.iterrows():
     title = row["Title"]
     content = row["Content"]
-    data += f"新聞標題: {title}  內容: {content}\n\n"
+    anue_data += f"新聞標題: {title}  內容: {content}\n\n"
 
+for index, row in MoneyDJ_df.iterrows():
+    title = row["Title"]
+    content = row["Content"]
+    MoneyDJ_data += f"新聞標題: {title}  內容: {content}\n\n"
+
+for index, row in Franklin_df.iterrows():
+    title = row["Title"]
+    content = row["Content"]
+    Franklin_data += f"\n國際股債市焦點:\n標題: {title}  內容: {content}\n\n"
+
+data = anue_data + MoneyDJ_data + Franklin_data
 
 # 不同角色 prompt
 role_prompts = {
@@ -102,28 +121,30 @@ def generate_report(prompt):
 
     return response.choices[0].message.content
 
-# 定義報告目錄和當天的資料夾路徑
-base_dir = 'report_data'
-today_dir = os.path.join(base_dir, today_date)
+if __name__ == "__main__":
+    # 定義報告目錄和當天的資料夾路徑
+    base_dir = 'report_data'
+    today_dir = os.path.join(base_dir, today_date)
 
-# 如果資料夾不存在，則創建它
-if not os.path.exists(today_dir):
-    os.makedirs(today_dir)
-    print(f"Created directory: {today_dir}")
-else:
-    print(f"Directory already exists: {today_dir}")
+    # 如果資料夾不存在，則創建它
+    if not os.path.exists(today_dir):
+        os.makedirs(today_dir)
+        print(f"Created directory: {today_dir}")
+    else:
+        print(f"Directory already exists: {today_dir}")
 
-# 生成并保存不同角色的报告
-for role_key, role_prompt in role_prompts.items():
-    prompt = generate_prompt(role_prompt, data)
-    report = generate_report(prompt)
-    file_name = f"{role_key}_market_report.txt"
-    file_path = os.path.join(today_dir, file_name)
-    # 將報告寫入文件
-    with open(file_path, "w", encoding="utf-8") as file:
-        file.write(report)
-    
-    print(f"Report saved to: {file_path}")
+    # 生成并保存不同角色的报告
+    for role_key, role_prompt in role_prompts.items():
+        prompt = generate_prompt(role_prompt, data)
+
+        report = generate_report(prompt)
+        file_name = f"{role_key}_market_report.txt"
+        file_path = os.path.join(today_dir, file_name)
+        # 將報告寫入文件
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(report)
+        
+        print(f"Report saved to: {file_path}")
 
 
 # # 計算 tokens
@@ -134,6 +155,3 @@ for role_key, role_prompt in role_prompts.items():
 
 # # 顯示回應
 # print(response_text)
-
- 
-  

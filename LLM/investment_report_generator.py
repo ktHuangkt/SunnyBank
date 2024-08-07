@@ -13,20 +13,8 @@ client = AzureOpenAI(
   api_version=api_version
 )
 
-
 # 獲取今天的日期並格式化為字符串
 today_date = datetime.now().strftime('%Y-%m-%d')
-
-# 定義報告目錄和當天的資料夾路徑
-base_dir = 'report_data'
-today_dir = os.path.join(base_dir, today_date)
-
-# 如果資料夾不存在，則創建它
-if not os.path.exists(today_dir):
-    os.makedirs(today_dir)
-    print(f"Created directory: {today_dir}")
-else:
-    print(f"Directory already exists: {today_dir}")
 
 def read_market_report(role_key):
     file_path = os.path.join(today_dir, f"{role_key}_market_report.txt")
@@ -64,15 +52,27 @@ def generate_investment_report(market_report):
     
     return generate_report(prompt)
 
-# 生成并保存不同角色的投資報告
-for role_key in role_prompts.keys():
-    market_report = read_market_report(role_key)
-    investment_report = generate_investment_report(market_report)
-    file_name = f"{role_key}_investment_report.txt"
-    file_path = os.path.join(today_dir, file_name)
-    with open(file_path, "w", encoding="utf-8") as file:
-        file.write(investment_report)
-    print(f"Investment report saved to: {file_path}")
+if __name__ == "__main__":
+    # 定義報告目錄和當天的資料夾路徑
+    base_dir = 'report_data'
+    today_dir = os.path.join(base_dir, today_date)
+
+    # 如果資料夾不存在，則創建它
+    if not os.path.exists(today_dir):
+        os.makedirs(today_dir)
+        print(f"Created directory: {today_dir}")
+    else:
+        print(f"Directory already exists: {today_dir}")
+
+    # 生成并保存不同角色的投資報告
+    for role_key in role_prompts.keys():
+        market_report = read_market_report(role_key)
+        investment_report = generate_investment_report(market_report)
+        file_name = f"{role_key}_investment_report.txt"
+        file_path = os.path.join(today_dir, file_name)
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(investment_report)
+        print(f"Investment report saved to: {file_path}")
 
 # # 計算 tokens
 # encoding = tiktoken.get_encoding("cl100k_base")
