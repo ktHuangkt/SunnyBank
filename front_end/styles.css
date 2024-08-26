@@ -82,9 +82,13 @@ section {
     margin-bottom: 2vw;
 }
 
-.news, .summary, .stock-market{
+.news, .stock-market{
     margin: 5vw 15vw 0vw 15vw; 
     /* border-radius: 1vw; /*圓角 */
+}
+
+.summary{
+    margin: 5vw 15vw 5vw 15vw;
 }
 
 .stock-market{
@@ -98,6 +102,8 @@ section {
 .news h2, .summary h2, .stock-market h2 {
     color: var(--text-color);
     font-size: 1.5vw;
+    padding: 0px 0px 10px 0px;
+
 }
 
 .news-items, .summary-items, .stock-market-items {
@@ -112,21 +118,37 @@ section {
 .news-item-light {
     font-size: 1.2vw;
     background-color: var(--highlight-bg-color);
-    color: #55826C;
     padding: 10px;
     border-radius: 4px;
+}
+
+.news-item-light a{
+    color: #55826C;
+    text-decoration: none;/*移除超連結的默認下劃線樣式*/
+}
+
+.news-item-light a:hover {/*設置懸停狀態的超連結樣式*/
+    text-decoration: underline;
 }
 
 .news-item-dark{
     font-size: 1.2vw;
     background-color: var(--dark-bg-color);
-    color: var(--highlight-text-color);
     padding: 10px;
     border-radius: 4px;
 }
 
+.news-item-dark a{
+    color: var(--highlight-text-color);
+    text-decoration: none;/*移除超連結的默認下劃線樣式*/
+}
+
+.news-item-dark a:hover {/*設置懸停狀態的超連結樣式*/
+    text-decoration: underline;
+}
+
 .summary-items {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
 }
 
@@ -136,55 +158,57 @@ section {
     color: var(--highlight-text-color);
     padding: 20px;
     border-radius: 4px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.summary-title {
+    font-size: 1.5vw;
+    font-weight: bold;
     text-align: center;
+    padding: 0px 0px 10px 0px;
+    animation: fadeIn 2s ease-in-out;
 }
 
-.stock-market-items{
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-}
+.summary-content {
+    text-align: left;
+    animation: delay 10s;
+    animation: fadeIn 2s ease-in-out;
 
-.stock-market-item{
-    font-size: 1.2vw;
-    background-color: var(--dark-bg-color);
-    padding: 20px;
-    border-radius: 4px;
 }
 
 footer {
     background-color: var(--footer-bg-color);
-    padding: 5vw 10vw 5vw 10vw;
+    padding: 2.5vw 10vw 2.5vw 10vw;
+    text-align: center; /* 将整个页脚内容置中 */
 }
 
 .footer-title {
     font-size: 1.5em;
+    text-align: center; /* 标题置中 */
 }
 
-.footer-items {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
 .footer-item {
     padding: 10px;
     color: var(--text-color);
+    font-size: 1em; /* 确保字体大小一致 */
 }
 
-.footer-item .main-link{
-    padding-left: 1em;
-}
-
-.footer-item ul {
-    list-style-type: none;
-    margin-top: 0.5em;
-    padding-left: 2em;
-}
-
-.footer-item a {
+.footer-item .main-link {
+    margin: 0 0.5em; /* 链接之间的间距 */
     color: var(--text-color);
-    text-decoration: none;/*移除超連結的默認下劃線樣式*/
+    text-decoration: none; /* 移除超链接的默认下划线样式 */
 }
-.footer-item a:hover {/*設置懸停狀態的超連結樣式*/
-    text-decoration: underline;
+
+.footer-item .main-link:hover {
+    text-decoration: underline; /* 设置悬停状态的超链接样式 */
 }
 
 .overlay {
