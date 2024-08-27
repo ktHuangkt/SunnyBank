@@ -5,15 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>產品細項</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
     <header>
         <h1>產品細項</h1>
     </header>
     <main>
-        <article>
-            <p>產品A的詳細介紹...</p>
-        </article>
+        <div id="fund-container"></div>
     </main>
+    
+    <script>
+        const fundContainer = document.getElementById('fund-container');
+
+        const fundTemplate = (number) => `
+        <section class="fund-info">
+            <div class="fund-details">
+                <header class="fund-header">
+                    <div class="fund-header-content">
+                        <div class="fund-number" aria-label="Fund number">${number}</div>
+                        <h2 class="fund-name">xxx基金</h2>
+                    </div>
+                </header>
+                <div class="fund-stats">
+
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <span class="stat-label">計價幣別</span>
+                            <span class="stat-value">台幣</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">三個月報酬率</span>
+                            <span class="stat-value">XX%</span>
+                        </div>
+                    </div>
+                    <hr class="divider" aria-hidden="true">
+
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <span class="stat-label">風險報酬等級</span>
+                            <span class="stat-value">台灣</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">六個月報酬率</span>
+                            <span class="stat-value">XX%</span>
+                        </div>
+                    </div>
+                    <hr class="divider" aria-hidden="true">
+
+                    <div class="stat-row">
+                        <div class="stat-item">
+                            <span class="stat-label">主要投資區域</span>
+                            <span class="stat-value">RR5</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">一年報酬率</span>
+                            <span class="stat-value">XX%</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="purchase-button">申購</button>
+            </div>
+            <aside class="recommendation-reason">推薦原因:</aside>
+        </section>`;
+
+        for (let i = 1; i <= 5; i++) {
+            fundContainer.innerHTML += fundTemplate(i);
+        }
+    </script>
 </body>
 </html>

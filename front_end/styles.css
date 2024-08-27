@@ -258,3 +258,114 @@ footer {
 .popup .buttons button:hover {
     background-color: var(--button-hover-bg-color);
 }
+
+  
+.fund-info {
+    /*gap: 20px;*/
+    display: flex;
+    margin: 5vw 12vw 5vw 12vw;
+}
+
+.fund-details {
+    background-color: #eff5f1;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 1px 0;
+
+    overflow: hidden; /*省略號*/
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.fund-header {
+    background-color: #a7dac1;
+    padding: 15px 21px;
+    border: 1px solid rgba(73, 116, 95, 0);
+    height: 15vh;
+    justify-content: flex-start;
+    box-shadow: none;
+}
+
+.fund-header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.fund-number {
+    background-color: #6a9982;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    color: #fff;
+    padding: 9px 21px;
+    font: 400 40px Inter, sans-serif;
+    margin-right: 1vw;
+}
+.fund-name {
+    color: #49705d;
+    font: 400 2.1vw Inter, sans-serif;
+}
+
+.fund-stats {
+    display: flex;
+    margin-top: 16px;
+    width: 100%;
+    flex-direction: column;
+    align-items: start;
+    font-family: Inter, sans-serif;
+    color: #49745f;
+    font-weight: 400;
+    padding: 0 24px;
+}
+
+.stat-row {
+    display: flex;
+    width: 392px;
+    max-width: 100%;
+    gap: 40px 100px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 1.2vw;
+}
+
+.stat-value {
+    font-size: 2vw;
+    margin-top: 12px;
+}
+
+.divider {
+    align-self: stretch;
+    height: 1px;
+    /*margin-top: 25px;
+    border: 1px solid #49745f;*/
+}
+
+.purchase-button {
+    background-color: #6a9982;
+    margin-top: 25px;
+    color: #f5f5ef;
+    text-align: center;
+    padding: 25px 70px;
+    font: 400 2.5vw Inter, sans-serif;
+    border: 1px solid rgba(73, 116, 95, 0);
+}
+
+.recommendation-reason {
+    background-color: #eff5f1;
+    flex-grow: 1;
+    color: #49745f;
+    text-align: left;
+    width: 100%;
+    padding: 26px 43px 434px;
+    font: 400 2.1vw Inter, sans-serif;
+}
