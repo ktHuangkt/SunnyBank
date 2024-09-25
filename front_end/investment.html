@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-        <h1>我是標題</h1>
+        <h1>NeuReport</h1>
         <nav>
             <a href="{{ url_for('index') }}">首頁</a> 
             <a href="{{ url_for('market') }}">市場分析報告</a>
@@ -21,15 +21,41 @@
         </section>
         <section class="date-selection">
             <div class="report-date">{{ date }}</div>
-            <!-- <input type="date" id="report-date" name="report-date" value="{{ date }}" class="report-date"> -->
+        </section>
+        <section class="report-section">
+            <div class="report-directory">
+                <h3>目錄</h3>
+                <hr class="directory-divider" aria-hidden="true">
+                <ul>
+                    <li>1. 投資環境概述</li>
+                    <li>2. 投資組合建議</li>
+                    <li>3. 風險管理策略</li>
+                    <li>4. 市場展望</li>
+                    <li>5. 投資總結</li>
+                </ul>
+            </div>
+            <div class="report-summary">
+                <h2>摘要</h2>
+                <p>{{ summary }}</p>
+            </div>
         </section>
         <section class="report-content">
-            <pre>{{ report | safe }}</pre> <!-- 使用 Jinja2 语法插入报告内容 -->
+            {% for section in report %}
+            <article>
+                <h2>{{ section['report-title'] }}</h2>
+                <pre>{{ section['report-content'] }}</pre>
+            </article>
+            {% endfor %}
         </section>
         <section class="product-recommend">
             <h2>產品推薦</h2>
-            <a href="{{ url_for('product') }}">產品A</a>
+            <div class="products">
+            </div>
         </section>
+        <section class="product-rank-button">
+            <a href="{{ url_for('product') }}" class="btn">產品排行榜</a>
+        </section>
+        
     </main>
     <footer>
         <div class="footer-title">資料來源</div>
@@ -38,7 +64,39 @@
                 <a class="main-link" href="https://www.moneydj.com/" target="_blank">MoneyDJ理財網</a> |
                 <a class="main-link" href="https://www.franklin.com.tw/" target="_blank">富蘭克林‧國民的基金</a>
         </div>
-        
+        <div class="disclaimer">
+            基金資料截至 113年 06月30日<br>
+            本平台提供的資訊僅供參考。投資涉及風險，包括市場風險、信用風險等。<br>
+            請根據自身需求和風險承受能力做出決策。使用者應自行了解並遵守所在地法律和規範。對於因使用本平台資訊而造成的任何損失，本平台不承擔責任。
+        </div>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        fetch('/get_products')
+            .then(response => response.json())
+            .then(data => {
+                const productsContainer = document.querySelector('.products');
+                productsContainer.innerHTML = ''; // 清空现有内容
+
+                data.forEach((product, index) => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item');
+
+                    const rankSpan = document.createElement('span');
+                    rankSpan.textContent = `Top${index + 1}`;
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.textContent = product;
+
+                    productItem.appendChild(rankSpan);
+                    productItem.appendChild(nameSpan);
+
+                    productsContainer.appendChild(productItem);
+                });
+            })
+            .catch(error => console.error('Error fetching products:', error));
+    });
+    </script>
 </body>
 </html>

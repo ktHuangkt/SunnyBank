@@ -10,68 +10,88 @@
 <body>
     <header>
         <h1>產品細項</h1>
+        <nav>
+            <a href="{{ url_for('investment') }}">返回</a>
+        </nav>
     </header>
     <main>
         <div id="fund-container"></div>
     </main>
+    <footer>
+        <div class="footer-title">資料來源</div>
+        <div class="footer-item">
+                <a class="main-link" href="https://www.cnyes.com/" target="_blank">鉅亨網</a> |
+                <a class="main-link" href="https://www.moneydj.com/" target="_blank">MoneyDJ理財網</a> |
+                <a class="main-link" href="https://www.franklin.com.tw/" target="_blank">富蘭克林‧國民的基金</a>
+        </div>
+        <div class="disclaimer">
+            基金資料截至 113年 06月30日<br>
+            本平台提供的資訊僅供參考。投資涉及風險，包括市場風險、信用風險等。<br>
+            請根據自身需求和風險承受能力做出決策。使用者應自行了解並遵守所在地法律和規範。對於因使用本平台資訊而造成的任何損失，本平台不承擔責任。
+        </div>
+    </footer>
     
     <script>
-        const fundContainer = document.getElementById('fund-container');
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/fund_details')
+                .then(response => response.json())
+                .then(data => {
+                    const fundContainer = document.getElementById('fund-container');
+                    fundContainer.innerHTML = data.map((fund, index) => `
+                        <section class="fund-info">
+                            <div class="fund-details">
+                                <header class="fund-header">
+                                    <div class="fund-header-content">
+                                        <div class="fund-number" aria-label="Fund number">${index + 1}</div>
+                                        <h2 class="fund-name">${fund['產品名稱']}</h2>
+                                    </div>
+                                </header>
+                                <div class="fund-stats">
+                                    <div class="stat-row">
+                                        <div class="stat-item">
+                                            <span class="stat-label">計價幣別</span>
+                                            <span class="stat-value">${fund['計價幣別']}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">三個月報酬率</span>
+                                            <span class="stat-value">${fund['三個月報酬率']}</span>
+                                        </div>
+                                    </div>
+                                    <hr class="divider" aria-hidden="true">
+                                    <div class="stat-row">
+                                        <div class="stat-item">
+                                            <span class="stat-label">風險報酬等級</span>
+                                            <span class="stat-value">${fund['風險報酬等級']}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">六個月報酬率</span>
+                                            <span class="stat-value">${fund['六個月報酬率']}</span>
+                                        </div>
+                                    </div>
+                                    <hr class="divider" aria-hidden="true">
+                                    <div class="stat-row">
+                                        <div class="stat-item">
+                                            <span class="stat-label">主要投資區域</span>
+                                            <span class="stat-value">${fund['主要投資區域']}</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">一年報酬率</span>
+                                            <span class="stat-value">${fund['一年報酬率']}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="${fund['連結']}" class="purchase-button" target="_blank">申購</a>
+                            </div>
+                            <aside class="recommendation">
+                                <div class="product-description"> ${fund['產品簡介']}</div>
+                                <div class="recommendation-reason"> ${fund['推薦原因']}</div>
+                            </aside>
 
-        const fundTemplate = (number) => `
-        <section class="fund-info">
-            <div class="fund-details">
-                <header class="fund-header">
-                    <div class="fund-header-content">
-                        <div class="fund-number" aria-label="Fund number">${number}</div>
-                        <h2 class="fund-name">xxx基金</h2>
-                    </div>
-                </header>
-                <div class="fund-stats">
-
-                    <div class="stat-row">
-                        <div class="stat-item">
-                            <span class="stat-label">計價幣別</span>
-                            <span class="stat-value">台幣</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">三個月報酬率</span>
-                            <span class="stat-value">XX%</span>
-                        </div>
-                    </div>
-                    <hr class="divider" aria-hidden="true">
-
-                    <div class="stat-row">
-                        <div class="stat-item">
-                            <span class="stat-label">風險報酬等級</span>
-                            <span class="stat-value">台灣</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">六個月報酬率</span>
-                            <span class="stat-value">XX%</span>
-                        </div>
-                    </div>
-                    <hr class="divider" aria-hidden="true">
-
-                    <div class="stat-row">
-                        <div class="stat-item">
-                            <span class="stat-label">主要投資區域</span>
-                            <span class="stat-value">RR5</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-label">一年報酬率</span>
-                            <span class="stat-value">XX%</span>
-                        </div>
-                    </div>
-                </div>
-                <button class="purchase-button">申購</button>
-            </div>
-            <aside class="recommendation-reason">推薦原因:</aside>
-        </section>`;
-
-        for (let i = 1; i <= 5; i++) {
-            fundContainer.innerHTML += fundTemplate(i);
-        }
+                        </section>
+                    `).join('');
+                })
+                .catch(error => console.error('Error fetching fund details:', error));
+        });
     </script>
 </body>
 </html>

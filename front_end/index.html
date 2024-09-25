@@ -10,7 +10,7 @@
 <body>
     <div class="overlay" id="overlay">
         <div class="popup">
-            <h2>歡迎來到 Title</h2>
+            <h2>歡迎來到 NeuReport</h2>
             <p>請幫助我們認識你，以便提供合適的網站內容。</p>
             <div class="buttons">
                 <button id="beginner" onclick="sendUserRole('beginner')">
@@ -24,7 +24,7 @@
     </div>
 
     <header>
-        <h1>我是標題</h1>
+        <h1>NeuReport</h1>
         <nav>
             <a href="{{ url_for('market') }}">市場分析報告</a>
             <a href="{{ url_for('investment') }}">投資分析報告</a>
@@ -51,7 +51,10 @@
                 <a class="main-link" href="https://www.moneydj.com/" target="_blank">MoneyDJ理財網</a> |
                 <a class="main-link" href="https://www.franklin.com.tw/" target="_blank">富蘭克林‧國民的基金</a>
         </div>
-        
+        <div class="disclaimer">
+            本平台提供的資訊僅供參考。投資涉及風險，包括市場風險、信用風險等。<br>
+            請根據自身需求和風險承受能力做出決策。使用者應自行了解並遵守所在地法律和規範。對於因使用本平台資訊而造成的任何損失，本平台不承擔責任。
+        </div>
     </footer>
 
     <script>
