@@ -86,7 +86,7 @@ def get_date_from_soup(soup):
 
 def main():
     url = "https://www.franklin.com.tw/dailynews/Daily_A.html"
-    key = "web-scraping/kinetic-bot-429607-b2-83e041270035.json"
+    key = "web-scraping/kinetic-bot-429607-b2-61f6937a8283.json"
     spreadsheet_url = "https://docs.google.com/spreadsheets/d/1K-z5v8V_R7zhDpcEHMxUIk9P-J_hNnLT6MxTP_M4XAg/edit?gid=0#gid=0"
     
     driver = initialize_driver()
